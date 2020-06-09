@@ -20,7 +20,7 @@ class MyAppState extends State<MyApp> {
     });
   }
 
-  Widget(BuildContext context) {
+  Widget build(BuildContext context) {
     var questions = [
       'What\'s your favourite color ?',
       'What\'s your favourite animal ?',
