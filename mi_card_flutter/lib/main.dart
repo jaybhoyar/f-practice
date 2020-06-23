@@ -9,15 +9,30 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.pink,
+        backgroundColor: Colors.white70,
         body: SafeArea(
-          child: Container(
-            height: 100.0,
-            width: 100.0,
-            margin: EdgeInsets.symmetric(vertical: 50.0, horizontal: 20.0),
-            padding: EdgeInsets.all(20.0),
-            color: Colors.white,
-            child: Text("Hello"),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              SizedBox(height: 30.0),
+              Container(
+                height: 100.0,
+                color: Colors.orange[600],
+                child: Text("Hello"),
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                height: 100.0,
+                color: Colors.white,
+                child: Text("Hello"),
+              ),
+              SizedBox(height: 30.0),
+              Container(
+                height: 100.0,
+                color: Colors.green,
+                child: Text("Hello"),
+              ),
+            ],
           ),
         ),
       ),
