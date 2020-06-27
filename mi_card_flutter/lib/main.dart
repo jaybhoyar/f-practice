@@ -15,11 +15,20 @@ class MyApp extends StatelessWidget {
           child: Column(
             children: <Widget>[
               CircleAvatar(
-                  radius: 50.0,
-                  backgroundColor: Colors.red,
-                  child: Image(
-                    image: AssetImage('images/profile.png'),
-                  )),
+                radius: 50.0,
+                backgroundImage: AssetImage('images/profile.png'),
+                // height: 50.0,
+                // width: 50.0,
+              ),
+              Text(
+                'Jay Bhoyar',
+                style: TextStyle(
+                  fontSize: 34.0,
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Pacifico',
+                ),
+              )
             ],
           ),
         ),
