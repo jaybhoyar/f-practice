@@ -2,7 +2,7 @@
 
 # Mi Card
 
-![Final Image](images/final.png)
+![Final Image](images/final.png){ width="100px"}
 
 ## Our Goal
 
