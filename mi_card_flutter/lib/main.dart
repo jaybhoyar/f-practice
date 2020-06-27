@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Colors.teal,
+        backgroundColor: Colors.teal.shade600,
         body: SafeArea(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 CircleAvatar(
                   radius: 50.0,
@@ -22,47 +23,53 @@ class MyApp extends StatelessWidget {
                 Text(
                   'Jay Bhoyar',
                   style: TextStyle(
-                    fontSize: 35.0,
+                    fontSize: 36.0,
                     color: Colors.white,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Pacifico',
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(10.0),
-                  child: Text(
-                    'FULL STACK DEVELOPER',
-                    style: TextStyle(
-                      fontSize: 16.0,
-                      letterSpacing: 1.8,
-                      color: Colors.teal.shade100,
-                      fontWeight: FontWeight.bold,
-                      // fontFamily: 'Pacifico',
+                Text(
+                  'FULL STACK DEVELOPER',
+                  style: TextStyle(
+                    fontSize: 16.0,
+                    height: 1.5,
+                    letterSpacing: 1.8,
+                    color: Colors.teal.shade100,
+                    fontWeight: FontWeight.bold,
+                    // fontFamily: 'Pacifico',
+                  ),
+                ),
+                SizedBox(
+                  height: 15.0,
+                  width: 180.0,
+                  child: Divider(
+                    color: Colors.teal.shade100,
+                  ),
+                ),
+                Card(
+                  color: Colors.white,
+                  margin:
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
+                  child: ListTile(
+                    leading: Icon(
+                      Icons.phone,
+                      color: Colors.teal,
+                    ),
+                    title: Text(
+                      '+91 727 612 9866',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16.0,
+                        color: Colors.teal.shade900,
+                      ),
                     ),
                   ),
                 ),
                 Card(
                   color: Colors.white,
                   margin:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
-                  child: ListTile(
-                      leading: Icon(
-                        Icons.phone,
-                        color: Colors.teal,
-                      ),
-                      title: Text(
-                        '+91 727 612 9866',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 16.0,
-                          color: Colors.teal.shade900,
-                        ),
-                      )),
-                ),
-                Card(
-                  color: Colors.white,
-                  margin:
-                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 25.0),
+                      EdgeInsets.symmetric(vertical: 10.0, horizontal: 28.0),
                   child: ListTile(
                     leading: Icon(
                       Icons.email,
