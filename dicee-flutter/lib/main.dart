@@ -25,14 +25,15 @@ class _DicePageState extends State<DicePage> {
   var rightDiceNumber = 6;
   @override
   Widget build(BuildContext context) {
-    leftDiceNumber = 2;
     return Center(
       child: Row(
         children: <Widget>[
           Expanded(
             child: FlatButton(
               onPressed: () {
-                print('left button Pressed');
+                setState(() {
+                  leftDiceNumber = 3;
+                });
               },
               child: Image.asset('images/dice$leftDiceNumber.png'),
             ),
@@ -40,7 +41,9 @@ class _DicePageState extends State<DicePage> {
           Expanded(
             child: FlatButton(
               onPressed: () {
-                print('right button Pressed');
+                setState(() {
+                  rightDiceNumber = 1;
+                });
               },
               child: Image.asset('images/dice$rightDiceNumber.png'),
             ),
