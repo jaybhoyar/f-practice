@@ -17,7 +17,7 @@ class IconContent extends StatelessWidget {
           color: Colors.white,
         ),
         SizedBox(height: 10.0),
-        Text(gender, style: genderTextStyle),
+        Text(gender, style: labelTextStyle),
       ],
     );
   }
