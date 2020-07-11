@@ -11,6 +11,6 @@ const labelTextStyle = TextStyle(
 );
 
 const kNumberTextStyle = TextStyle(
-  fontSize: 50.0,
+  fontSize: 45.0,
   fontWeight: FontWeight.w900,
 );
