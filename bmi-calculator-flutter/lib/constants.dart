@@ -29,3 +29,12 @@ const kResultTextStyle = TextStyle(
   color: Color(0xFF24D876),
   fontWeight: FontWeight.bold,
 );
+
+const kBMITextStyle = TextStyle(
+  fontSize: 80.0,
+  fontWeight: FontWeight.bold,
+);
+
+const kBmiBodyTextStyle = TextStyle(
+  fontSize: 20.0,
+);

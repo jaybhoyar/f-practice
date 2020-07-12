@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'constants.dart';
-import 'reusable_card.dart';
+import '../constants.dart';
+import '../components/reusable_card.dart';
 
 class ResultsPage extends StatelessWidget {
   @override
@@ -11,6 +11,7 @@ class ResultsPage extends StatelessWidget {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Container(
@@ -31,6 +32,15 @@ class ResultsPage extends StatelessWidget {
                   Text(
                     'NORMAL',
                     style: kResultTextStyle,
+                  ),
+                  Text(
+                    '18.3',
+                    style: kBMITextStyle,
+                  ),
+                  Text(
+                    'Your BMI is low, you should eat more!',
+                    textAlign: TextAlign.center,
+                    style: kBmiBodyTextStyle,
                   )
                 ],
               ),
