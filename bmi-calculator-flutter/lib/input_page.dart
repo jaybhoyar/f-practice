@@ -104,7 +104,6 @@ class _InputPageState extends State<InputPage> {
                       ),
                       child: Slider(
                         onChanged: (double newValue) {
-                          print(newValue);
                           setState(() {
                             height = newValue.round();
                           });
@@ -199,11 +198,22 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: Color(kBottomContainerColor),
-            margin: EdgeInsets.only(top: 10.0),
-            width: double.infinity,
-            height: kBottomContainerHeight,
+          GestureDetector(
+            onTap: () {
+              Navigator.pushNamed(context, '/result');
+            },
+            child: Container(
+              child: Center(
+                child: Text(
+                  'CALCULATE',
+                  style: kLargeTextStyle,
+                ),
+              ),
+              color: Color(kBottomContainerColor),
+              margin: EdgeInsets.only(top: 10.0),
+              width: double.infinity,
+              height: kBottomContainerHeight,
+            ),
           ),
         ],
       ),
