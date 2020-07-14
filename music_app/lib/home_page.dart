@@ -135,7 +135,7 @@ class _MainPageState extends State<MainPage> {
                     activeColor: Colors.red,
                     inactiveColor: Colors.grey.shade500,
                   ),
-                  SizedBox(height: 20.0),
+                  SizedBox(height: 10.0),
                   Padding(
                     padding: EdgeInsets.only(left: 30, right: 30),
                     child: Row(
@@ -144,7 +144,32 @@ class _MainPageState extends State<MainPage> {
                         Icon(
                           Icons.repeat,
                           size: 30,
-                        )
+                        ),
+                        Icon(
+                          Icons.skip_previous,
+                          size: 30,
+                        ),
+                        Container(
+                          height: 50,
+                          width: 50,
+                          child: FloatingActionButton(
+                            onPressed: () {},
+                            backgroundColor: Colors.deepPurple,
+                            child: Icon(
+                              Icons.pause,
+                              size: 32,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                        Icon(
+                          Icons.skip_next,
+                          size: 30,
+                        ),
+                        Icon(
+                          Icons.shuffle,
+                          size: 30,
+                        ),
                       ],
                     ),
                   ),
