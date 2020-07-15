@@ -1,4 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayer/audioplayer.dart';
+
+AudioPlayer audioPlayer = AudioPlayer();
+const kUrl =
+    "https://www.mediacollege.com/downloads/sound-effects/animals/bird/peacock/peacock.mp3";
 
 class MainPage extends StatefulWidget {
   @override
@@ -12,7 +17,6 @@ class _MainPageState extends State<MainPage> {
       backgroundColor: Colors.deepPurple,
       // appBar: AppBar(
       //   title: Text('Playing Now'),
-
       // ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -89,9 +93,9 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(height: 25),
                   Center(
                     child: Text(
-                      'Lose It',
+                      'Pratah Pooja Avasar',
                       style: TextStyle(
-                        fontSize: 26.0,
+                        fontSize: 25.0,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
@@ -99,7 +103,7 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(height: 8),
                   Center(
                     child: Text(
-                      'Flume ft. Vic Mensa',
+                      'Mahavir Music',
                       style: TextStyle(
                           fontSize: 14.0, color: Colors.grey.shade600),
                     ),
@@ -153,7 +157,9 @@ class _MainPageState extends State<MainPage> {
                           height: 50,
                           width: 50,
                           child: FloatingActionButton(
-                            onPressed: () {},
+                            onPressed: () async {
+                              await audioPlayer.play(kUrl);
+                            },
                             backgroundColor: Colors.deepPurple,
                             child: Icon(
                               Icons.pause,
