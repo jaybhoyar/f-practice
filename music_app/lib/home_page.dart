@@ -14,13 +14,7 @@ class _MainPageState extends State<MainPage> {
     super.initState();
     AudioPlayer.setIosCategory(IosCategory.playback);
     _player = AudioPlayer();
-    _player
-        .setUrl(
-            "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")
-        .catchError((error) {
-      // catch audio error ex: 404 url, wrong url ...
-      print(error);
-    });
+    _player.setAsset('audios/sample.mp3');
   }
 
   @override
@@ -151,57 +145,74 @@ class _MainPageState extends State<MainPage> {
                       ],
                     ),
                   ),
-                  Slider(
-                    min: 0.0,
-                    max: 4.00,
-                    value: 0.1,
-                    onChanged: (value) {},
-                    activeColor: Colors.red,
-                    inactiveColor: Colors.grey.shade500,
+                  StreamBuilder<Duration>(
+                    stream: _player.durationStream,
+                    builder: (context, snapshot) {
+                      final duration = snapshot.data ?? Duration.zero;
+                      return StreamBuilder<Duration>(
+                        stream: _player.getPositionStream(),
+                        builder: (context, snapshot) {
+                          var position = snapshot.data ?? Duration.zero;
+                          if (position > duration) {
+                            position = duration;
+                          }
+                          return SeekBar(
+                            duration: duration,
+                            position: position,
+                            onChangeEnd: (newPosition) {
+                              _player.seek(newPosition);
+                            },
+                          );
+                        },
+                      );
+                    },
                   ),
-                  SizedBox(height: 10.0),
+                  SizedBox(height: 5.0),
                   Padding(
                     padding: EdgeInsets.only(left: 30, right: 30),
                     child: StreamBuilder<FullAudioPlaybackState>(
-                        stream: _player.fullPlaybackStateStream,
-                        builder: (context, snapshot) {
-                          final fullState = snapshot.data;
-                          final state = fullState?.state;
-                          // final buffering = fullState?.buffering;
-                          return Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: <Widget>[
-                              Icon(
-                                Icons.repeat,
-                                size: 30,
+                      stream: _player.fullPlaybackStateStream,
+                      builder: (context, snapshot) {
+                        final fullState = snapshot.data;
+                        final state = fullState?.state;
+                        // final buffering = fullState?.buffering;
+                        return Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: <Widget>[
+                            Icon(
+                              Icons.repeat,
+                              size: 30,
+                            ),
+                            Icon(
+                              Icons.skip_previous,
+                              size: 30,
+                            ),
+                            if (state == AudioPlaybackState.playing)
+                              IconButton(
+                                icon: Icon(Icons.pause),
+                                iconSize: 45.0,
+                                color: Colors.deepPurple,
+                                onPressed: _player.pause,
+                              )
+                            else
+                              IconButton(
+                                icon: Icon(Icons.play_arrow),
+                                iconSize: 45.0,
+                                color: Colors.deepPurple,
+                                onPressed: _player.play,
                               ),
-                              Icon(
-                                Icons.skip_previous,
-                                size: 30,
-                              ),
-                              if (state == AudioPlaybackState.playing)
-                                IconButton(
-                                  icon: Icon(Icons.pause),
-                                  iconSize: 64.0,
-                                  onPressed: _player.pause,
-                                )
-                              else
-                                IconButton(
-                                  icon: Icon(Icons.play_arrow),
-                                  iconSize: 64.0,
-                                  onPressed: _player.play,
-                                ),
-                              Icon(
-                                Icons.skip_next,
-                                size: 30,
-                              ),
-                              Icon(
-                                Icons.shuffle,
-                                size: 30,
-                              ),
-                            ],
-                          );
-                        }),
+                            Icon(
+                              Icons.skip_next,
+                              size: 30,
+                            ),
+                            Icon(
+                              Icons.shuffle,
+                              size: 30,
+                            ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 ],
               ),
@@ -209,6 +220,50 @@ class _MainPageState extends State<MainPage> {
           )
         ],
       ),
+    );
+  }
+}
+
+class SeekBar extends StatefulWidget {
+  final Duration duration;
+  final Duration position;
+  final ValueChanged<Duration> onChanged;
+  final ValueChanged<Duration> onChangeEnd;
+
+  SeekBar({
+    @required this.duration,
+    @required this.position,
+    this.onChanged,
+    this.onChangeEnd,
+  });
+
+  @override
+  _SeekBarState createState() => _SeekBarState();
+}
+
+class _SeekBarState extends State<SeekBar> {
+  double _dragValue;
+
+  @override
+  Widget build(BuildContext context) {
+    return Slider(
+      min: 0.0,
+      max: widget.duration.inMilliseconds.toDouble(),
+      value: _dragValue ?? widget.position.inMilliseconds.toDouble(),
+      onChanged: (value) {
+        setState(() {
+          _dragValue = value;
+        });
+        if (widget.onChanged != null) {
+          widget.onChanged(Duration(milliseconds: value.round()));
+        }
+      },
+      onChangeEnd: (value) {
+        _dragValue = null;
+        if (widget.onChangeEnd != null) {
+          widget.onChangeEnd(Duration(milliseconds: value.round()));
+        }
+      },
     );
   }
 }
