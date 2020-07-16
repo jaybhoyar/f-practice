@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:audioplayer/audioplayer.dart';
-
-AudioPlayer audioPlayer = AudioPlayer();
-const kUrl =
-    "https://www.mediacollege.com/downloads/sound-effects/animals/bird/peacock/peacock.mp3";
+import 'package:just_audio/just_audio.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -11,6 +7,28 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  AudioPlayer _player;
+
+  @override
+  void initState() {
+    super.initState();
+    AudioPlayer.setIosCategory(IosCategory.playback);
+    _player = AudioPlayer();
+    _player
+        .setUrl(
+            "https://s3.amazonaws.com/scifri-episodes/scifri20181123-episode.mp3")
+        .catchError((error) {
+      // catch audio error ex: 404 url, wrong url ...
+      print(error);
+    });
+  }
+
+  @override
+  void dispose() {
+    _player.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,6 +152,8 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   Slider(
+                    min: 0.0,
+                    max: 4.00,
                     value: 0.1,
                     onChanged: (value) {},
                     activeColor: Colors.red,
@@ -157,8 +177,11 @@ class _MainPageState extends State<MainPage> {
                           height: 50,
                           width: 50,
                           child: FloatingActionButton(
-                            onPressed: () async {
-                              await audioPlayer.play(kUrl);
+                            onPressed: () {
+                              print('in play || pause');
+                              // _assetsAudioPlayer.playOrPause();
+
+                              // assetsAudioPlayer.play();
                             },
                             backgroundColor: Colors.deepPurple,
                             child: Icon(
