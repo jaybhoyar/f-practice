@@ -162,45 +162,46 @@ class _MainPageState extends State<MainPage> {
                   SizedBox(height: 10.0),
                   Padding(
                     padding: EdgeInsets.only(left: 30, right: 30),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Icon(
-                          Icons.repeat,
-                          size: 30,
-                        ),
-                        Icon(
-                          Icons.skip_previous,
-                          size: 30,
-                        ),
-                        Container(
-                          height: 50,
-                          width: 50,
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              print('in play || pause');
-                              // _assetsAudioPlayer.playOrPause();
-
-                              // assetsAudioPlayer.play();
-                            },
-                            backgroundColor: Colors.deepPurple,
-                            child: Icon(
-                              Icons.pause,
-                              size: 32,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ),
-                        Icon(
-                          Icons.skip_next,
-                          size: 30,
-                        ),
-                        Icon(
-                          Icons.shuffle,
-                          size: 30,
-                        ),
-                      ],
-                    ),
+                    child: StreamBuilder<FullAudioPlaybackState>(
+                        stream: _player.fullPlaybackStateStream,
+                        builder: (context, snapshot) {
+                          final fullState = snapshot.data;
+                          final state = fullState?.state;
+                          // final buffering = fullState?.buffering;
+                          return Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: <Widget>[
+                              Icon(
+                                Icons.repeat,
+                                size: 30,
+                              ),
+                              Icon(
+                                Icons.skip_previous,
+                                size: 30,
+                              ),
+                              if (state == AudioPlaybackState.playing)
+                                IconButton(
+                                  icon: Icon(Icons.pause),
+                                  iconSize: 64.0,
+                                  onPressed: _player.pause,
+                                )
+                              else
+                                IconButton(
+                                  icon: Icon(Icons.play_arrow),
+                                  iconSize: 64.0,
+                                  onPressed: _player.play,
+                                ),
+                              Icon(
+                                Icons.skip_next,
+                                size: 30,
+                              ),
+                              Icon(
+                                Icons.shuffle,
+                                size: 30,
+                              ),
+                            ],
+                          );
+                        }),
                   ),
                 ],
               ),
