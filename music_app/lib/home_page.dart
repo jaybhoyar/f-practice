@@ -121,30 +121,6 @@ class _MainPageState extends State<MainPage> {
                     ),
                   ),
                   SizedBox(height: 20),
-                  Padding(
-                    padding: EdgeInsets.only(left: 20.0, right: 20.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: <Widget>[
-                        Text(
-                          '0:58',
-                          style: TextStyle(
-                            fontSize: 13.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          '3:36',
-                          style: TextStyle(
-                            fontSize: 13.0,
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
                   StreamBuilder<Duration>(
                     stream: _player.durationStream,
                     builder: (context, snapshot) {
@@ -246,24 +222,52 @@ class _SeekBarState extends State<SeekBar> {
 
   @override
   Widget build(BuildContext context) {
-    return Slider(
-      min: 0.0,
-      max: widget.duration.inMilliseconds.toDouble(),
-      value: _dragValue ?? widget.position.inMilliseconds.toDouble(),
-      onChanged: (value) {
-        setState(() {
-          _dragValue = value;
-        });
-        if (widget.onChanged != null) {
-          widget.onChanged(Duration(milliseconds: value.round()));
-        }
-      },
-      onChangeEnd: (value) {
-        _dragValue = null;
-        if (widget.onChangeEnd != null) {
-          widget.onChangeEnd(Duration(milliseconds: value.round()));
-        }
-      },
+    return Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(left: 20.0, right: 20.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Text(
+                widget.duration.toString(),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                widget.duration.abs().toString(),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
+              )
+            ],
+          ),
+        ),
+        Slider(
+          min: 0.0,
+          max: widget.duration.inMilliseconds.toDouble(),
+          value: _dragValue ?? widget.position.inMilliseconds.toDouble(),
+          onChanged: (value) {
+            setState(() {
+              _dragValue = value;
+            });
+            if (widget.onChanged != null) {
+              widget.onChanged(Duration(milliseconds: value.round()));
+            }
+          },
+          onChangeEnd: (value) {
+            _dragValue = null;
+            if (widget.onChangeEnd != null) {
+              widget.onChangeEnd(Duration(milliseconds: value.round()));
+            }
+          },
+        ),
+      ],
     );
   }
 }
