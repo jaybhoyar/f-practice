@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:just_audio/just_audio.dart';
+// import 'package:time/time.dart';
 
 class MainPage extends StatefulWidget {
   @override
@@ -201,11 +202,6 @@ class _MainPageState extends State<MainPage> {
 }
 
 class SeekBar extends StatefulWidget {
-  final Duration duration;
-  final Duration position;
-  final ValueChanged<Duration> onChanged;
-  final ValueChanged<Duration> onChangeEnd;
-
   SeekBar({
     @required this.duration,
     @required this.position,
@@ -213,13 +209,18 @@ class SeekBar extends StatefulWidget {
     this.onChangeEnd,
   });
 
+  final Duration duration;
+  final Duration position;
+  final ValueChanged<Duration> onChanged;
+  final ValueChanged<Duration> onChangeEnd;
+
   @override
   _SeekBarState createState() => _SeekBarState();
 }
 
 class _SeekBarState extends State<SeekBar> {
   double _dragValue;
-
+  format(Duration duration) => duration.toString().substring(2, 7);
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -238,7 +239,7 @@ class _SeekBarState extends State<SeekBar> {
                 ),
               ),
               Text(
-                widget.duration.abs().toString(),
+                widget.duration.toString(),
                 style: TextStyle(
                   fontSize: 13.0,
                   color: Colors.black,
