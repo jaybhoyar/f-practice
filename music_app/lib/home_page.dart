@@ -230,13 +230,25 @@ class _SeekBarState extends State<SeekBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Text(
-                widget.duration.toString(),
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                ),
+              Row(
+                children: <Widget>[
+                  Text(
+                    widget.duration.inSeconds.toString(),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    widget.duration.inSeconds.toString(),
+                    style: TextStyle(
+                      fontSize: 13.0,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
               ),
               Text(
                 widget.duration.toString(),
