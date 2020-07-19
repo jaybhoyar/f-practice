@@ -125,16 +125,17 @@ class _MainPageState extends State<MainPage> {
                   StreamBuilder<Duration>(
                     stream: _player.durationStream,
                     builder: (context, snapshot) {
-                      final duration = snapshot.data ?? Duration.zero;
+                      final Duration _currentDuration =
+                          snapshot.data ?? Duration.zero;
                       return StreamBuilder<Duration>(
                         stream: _player.getPositionStream(),
                         builder: (context, snapshot) {
                           var position = snapshot.data ?? Duration.zero;
-                          if (position > duration) {
-                            position = duration;
+                          if (position > _currentDuration) {
+                            position = _currentDuration;
                           }
                           return SeekBar(
-                            duration: duration,
+                            duration: _currentDuration,
                             position: position,
                             onChangeEnd: (newPosition) {
                               _player.seek(newPosition);
@@ -230,25 +231,13 @@ class _SeekBarState extends State<SeekBar> {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
-              Row(
-                children: <Widget>[
-                  Text(
-                    widget.duration.inSeconds.toString(),
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  Text(
-                    widget.duration.inSeconds.toString(),
-                    style: TextStyle(
-                      fontSize: 13.0,
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
+              Text(
+                parseDuration(widget.duration.inMilliseconds),
+                style: TextStyle(
+                  fontSize: 13.0,
+                  color: Colors.black,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
               Text(
                 widget.duration.toString(),
@@ -282,5 +271,16 @@ class _SeekBarState extends State<SeekBar> {
         ),
       ],
     );
+  }
+
+  String parseDuration(x) {
+    final double _temp = x / 1000;
+    final int _minutes = (_temp / 60).floor();
+    final int _seconds = (((_temp / 60) - _minutes) * 60).round();
+    if (_seconds.toString().length != 1) {
+      return _minutes.toString() + ":" + _seconds.toString();
+    } else {
+      return _minutes.toString() + ":0" + _seconds.toString();
+    }
   }
 }
